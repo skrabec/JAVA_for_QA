@@ -29,7 +29,7 @@ public class ApplicationManager {
     }
 
     System.setProperty("webdriver.chrome.driver", "/Users/mikalaiskrabets/Work/chromedriver");
-    wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+    wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     wd.get("http://localhost/addressbook/index.php");
     groupHelper = new GroupHelper(wd);
     navigationHelper = new NavigationHelper(wd);
