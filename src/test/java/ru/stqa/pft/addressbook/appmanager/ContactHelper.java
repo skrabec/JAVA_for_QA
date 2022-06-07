@@ -2,11 +2,13 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.tests.ContactCreationTests;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase{
 
@@ -16,8 +18,7 @@ public class ContactHelper extends HelperBase{
 
   public void fillContactForm(ContactData contactData, boolean creation) {
     type(By.name("firstname"), contactData.getFirstName());
-    type(By.name("middlename"), contactData.getFirstName());
-    type(By.name("lastname"), contactData.getFirstName());
+    type(By.name("lastname"), contactData.getLastName());
 
     if (creation == true){
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
@@ -35,8 +36,8 @@ public class ContactHelper extends HelperBase{
     wd.findElement(By.name("submit")).click();
   }
 
-  public void selectContact() {
-    wd.findElement(By.xpath("//*[@name='selected[]']")).click();
+  public void selectContact(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void deleteSelectedContact() {
@@ -47,8 +48,8 @@ public class ContactHelper extends HelperBase{
     wd.switchTo().alert().accept();
   }
 
-  public void editContact() {
-    wd.findElement(By.xpath("//*[@title='Edit']")).click();
+  public void editContact(int index) {
+    wd.findElements(By.xpath("//*[@title='Edit']")).get(index).click();
   }
 
   public void submitContactModification() {
@@ -68,5 +69,19 @@ public class ContactHelper extends HelperBase{
 
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
+  }
+
+  public List<ContactData> getContactList() {
+    List <ContactData> contacts = new ArrayList<>();
+    List <WebElement> rows = wd.findElements(By.xpath("//tr[@name='entry']"));
+    for (WebElement cell : rows){
+      List<WebElement> cells = cell.findElements(By.tagName("td"));
+      String firstName = cells.get(2).getText();
+      String lastName = cells.get(1).getText();
+      int id = Integer.parseInt(cell.findElement(By.tagName("input")).getAttribute("value"));
+      ContactData contact = new ContactData(firstName, lastName);
+      contacts.add(contact);
+    }
+    return contacts;
   }
 }
