@@ -1,7 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.Comparator;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ContactDeletionTests extends TestBase{
 
-  @Test
+  @Test(enabled = false)
   public void testContactDeletion(){
     if (! app.getContactHelper().isThereAContact()) {
       app.getContactHelper().createContact(new ContactData("Arthur", "Conan", "[none]"), true);
