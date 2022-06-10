@@ -6,22 +6,12 @@ import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class GroupHelper extends HelperBase {
 
   public GroupHelper(WebDriver wd) {
     super(wd);
-  }
-
-  public void returnToGroupPage() {
-    click(By.linkText("groups"));
-  }
-
-  public void submitGroupCreation() {
-    click(By.name("submit"));
   }
 
   public void fillGroupForm(GroupData groupData) {
@@ -34,12 +24,20 @@ public class GroupHelper extends HelperBase {
     click(By.name("new"));
   }
 
+  public void submitGroupCreation() {
+    click(By.name("submit"));
+  }
+
   public void deleteSelectedGroups() {
     click(By.name("delete"));
   }
 
   public void selectGroupById(int id) {
     wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+  }
+
+  public void returnToGroupPage() {
+    click(By.linkText("groups"));
   }
 
   public void initGroupModification() {
