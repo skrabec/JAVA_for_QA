@@ -60,6 +60,10 @@ public class ContactHelper extends HelperBase{
     wd.findElement(By.xpath("//input[@type='submit' and @value='Update']")).click();
   }
 
+  public int getContactCount() {
+    return wd.findElements(By.name("selected[]")).size();
+  }
+
   public void create(ContactData contact, Boolean creation) {
     initContactCreation();
     fillContactForm(contact, creation);
