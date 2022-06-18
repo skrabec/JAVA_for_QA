@@ -1,12 +1,20 @@
 package ru.stqa.pft.addressbook.model;
 
+import java.io.File;
 import java.util.Objects;
+import java.util.logging.FileHandler;
 
 public class ContactData {
   private int id = Integer.MAX_VALUE;
   private String firstName;
   private String lastName;
   private String group;
+  private File photo;
+
+  public ContactData withPhoto(File photo) {
+    this.photo = photo;
+    return this;
+  }
 
   public ContactData withId(int id) {
     this.id = id;
@@ -42,6 +50,10 @@ public class ContactData {
 
   public String getGroup() {
     return group;
+  }
+
+  public File getPhoto() {
+    return photo;
   }
 
 
